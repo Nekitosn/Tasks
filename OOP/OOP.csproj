@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileTypes\File.cs" />
+    <Compile Include="FileTypes\Image.cs" />
+    <Compile Include="FileTypes\Movie.cs" />
+    <Compile Include="FileTypes\Text.cs" />
+    <Compile Include="Handler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
