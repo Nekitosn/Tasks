@@ -1,126 +1,124 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace fileXML
+namespace FileXML
 {
     public class Book
     {
+        private SerializeOrDesirializeXML s = new();
 
         public void BookSession(List<ReservationSession> bookList)
         {
-            SerializeOrDesirializeXML s = new();
-            List<Dates> datesList = s.DeserializeXML<Dates>();
-
-            while (true)
+            try 
             {
-                Dates dates = ExistsValue(datesList);
-                if (dates == null) { Console.WriteLine("There is no schedule for this date\n"); break; }
-                int indexNameFilm = ExistsFilm(dates);
-                if (indexNameFilm == -1) { Console.WriteLine("In this date of this movie is not\n"); break; }
-                string timeStartFilm = ExistsTime(dates, indexNameFilm);
-                if (timeStartFilm == null) { Console.WriteLine("There are no sessions at this time\n"); break; }
-
-                //Чтоб цикл не делал бесмысленную роботу сразу смотрим, забронирован ли уже данный сеанс
-                if (CheckingReservation(bookList, new ReservationSession(dates, indexNameFilm, timeStartFilm)))
+                ExistSession(out Dates dates,out int indexNameFilm,out string timeStartFilm);
+                List<Dates> datesList = s.DeserializeXML<Dates>();
+                if (CheckingReservation(bookList, new ReservationSession(dates, indexNameFilm, timeStartFilm)))//Если данный сеанс уже забронирован
                 {
-                    //Если данный сеанс уже забронирован
-                    Console.WriteLine("This senas is already booked\n"); break;
+                    Console.WriteLine("This session is already booked\n"); return;
                 }
-
-                int indexReservationNameFilm = GetIndexSessionOnThisMovie(bookList, new ReservationSession(dates, indexNameFilm, timeStartFilm));
-                int indexValue = GetIndexSessionInThisDay(bookList, new ReservationSession(dates, indexNameFilm, timeStartFilm));
-
-                if (CheckReservationSessionOnThisMovie(bookList, new ReservationSession(dates, indexNameFilm, timeStartFilm)))
+                else
                 {
-                    //Добавляем на существующую(ту которую указал пользователь) дату, на существующий фильм новое время
-                    bookList[indexValue].Films[indexReservationNameFilm].Times.Add(new TimeStartFilm(timeStartFilm));
-                    Console.WriteLine($"You have booked a session\n"); break;
+                    Booked(bookList, dates, indexNameFilm, timeStartFilm);
+                    Console.WriteLine($"You have booked a session\n");
                 }
-                else if (CheckReservationSessionInThisDay(bookList, new ReservationSession(dates, indexNameFilm, timeStartFilm)))
-                {
-                    //Добавляем на существующую(ту которую указал пользователь) дату новый фильм
-                    bookList[indexValue].Films.Add(new NameFilm(dates.Date.Movies.Movie[indexNameFilm].Name, new List<TimeStartFilm> { new TimeStartFilm(timeStartFilm) }));
-                    Console.WriteLine($"You have booked a session\n"); break;
-                }
-                else   //Добавляем новую дату со всеми вытекающими
-                {
-                    bookList.Add(new ReservationSession(dates, indexNameFilm, timeStartFilm));
-                    Console.WriteLine($"You have booked a session\n"); break;
-                }
-
             }
+            catch (Exception ex) { Console.WriteLine(ex.Message); return; }
         }
 
+        private bool ExistSession(out Dates dates, out int indexNameFilm, out string timeStartFilm)
+        {
+            List<Dates> datesList = s.DeserializeXML<Dates>();
+
+            dates = ExistsValue(datesList);
+            if (dates == null) throw new Exception("There is no schedule for this date\n");
+            indexNameFilm = ExistsFilm(dates);
+            if (indexNameFilm == -1) throw new Exception("In this date of this movie is not\n");
+            timeStartFilm = ExistsTime(dates, indexNameFilm);
+            if (timeStartFilm == string.Empty) throw new Exception("There are no sessions at this time\n");
+
+            return true;
+        }
+
+        private void Booked(List<ReservationSession> bookList, Dates dates, int indexNameFilm, string timeStartFilm)
+        {
+            int indexReservationNameFilm = GetIndexSessionOnThisMovie(bookList, new ReservationSession(dates, indexNameFilm, timeStartFilm));
+            int indexValue = GetIndexSessionInThisDay(bookList, new ReservationSession(dates, indexNameFilm, timeStartFilm));
+
+            ReservationSession reservationSession = new(dates, indexNameFilm, timeStartFilm);
+
+                //Добавляем на существующую(ту которую указал пользователь) дату, на существующий фильм новое время
+            if (CheckReservationSessionOnThisMovie(bookList, reservationSession))
+            {
+                bookList[indexValue].Films[indexReservationNameFilm].Times.Add(new TimeStartFilm(timeStartFilm)); 
+                return;
+            }
+                //Добавляем на существующую(ту которую указал пользователь) дату новый фильм
+            else if (CheckReservationSessionInThisDay(bookList, reservationSession))
+            {
+                bookList[indexValue].Films.Add(new NameFilm(dates.Date.Movies.Movie[indexNameFilm].Name, new List<TimeStartFilm> { new TimeStartFilm(timeStartFilm) }));
+                return;
+            }
+                //Добавляем новую дату со всеми вытекающими
+            else   
+            {
+                bookList.Add(reservationSession);
+                return;
+            }
+        }
+        
         private bool CheckingReservation(List<ReservationSession> allReservationSessions, ReservationSession bookNow)
         {
-            bool coincide = false;
             for (int i = 0; i < allReservationSessions.Count; i++)
             {
-                if (coincide)
-                    break;
                 if (allReservationSessions[i].Value == bookNow.Value)
                     for (int j = 0; j < allReservationSessions[i].Films.Count; j++)
                         if (allReservationSessions[i].Films[j].Film == bookNow.Films[0].Film)
                             for (int k = 0; k < allReservationSessions[i].Films[j].Times.Count; k++)
                                 if (allReservationSessions[i].Films[j].Times[k].Time == bookNow.Films[0].Times[0].Time)
-                                    coincide = true;
+                                    return true;
             }
-            return coincide;
+            return false;
         }
         private bool CheckReservationSessionInThisDay(List<ReservationSession> allReservationSessions, ReservationSession bookNow)
         {
-            bool coincide = false;
             for (int i = 0; i < allReservationSessions.Count; i++)
             {
-                if (coincide)
-                    break;
                 if (allReservationSessions[i].Value == bookNow.Value)
-                    coincide = true;
+                    return  true;
             }
-            return coincide;
+            return false;
         }
         private int GetIndexSessionInThisDay(List<ReservationSession> allReservationSessions, ReservationSession bookNow)
         {
-            int coincide = -1;
             for (int i = 0; i < allReservationSessions.Count; i++)
             {
                 if (allReservationSessions[i].Value == bookNow.Value)
-                {
-                    coincide = i;
-                    break;
-                }
+                    return  i;
             }
-            return coincide;
+            return -1;
         }
         private bool CheckReservationSessionOnThisMovie(List<ReservationSession> allReservationSessions, ReservationSession bookNow)
         {
-            bool coincide = false;
             for (int i = 0; i < allReservationSessions.Count; i++)
             {
-                if (coincide)
-                    break;
                 if (allReservationSessions[i].Value == bookNow.Value)
                     for (int j = 0; j < allReservationSessions[i].Films.Count; j++)
                         if (allReservationSessions[i].Films[j].Film == bookNow.Films[0].Film)
-                            coincide = true;
+                            return true;
             }
-            return coincide;
+            return false;
         }
         private int GetIndexSessionOnThisMovie(List<ReservationSession> allReservationSessions, ReservationSession bookNow)
         {
-            int coincide = -1;
             for (int i = 0; i < allReservationSessions.Count; i++)
             {
                 if (allReservationSessions[i].Value == bookNow.Value)
                     for (int j = 0; j < allReservationSessions[i].Films.Count; j++)
                         if (allReservationSessions[i].Films[j].Film == bookNow.Films[0].Film)
-                        {
-                            coincide = j;
-                            break;
-                        }
-
+                            return j;
             }
-            return coincide;
+            return -1;
         }
         private Dates ExistsValue(List<Dates> allSessions)
         {
@@ -166,7 +164,7 @@ namespace fileXML
                     return time;
             }
 
-            return null;
+            return string.Empty;
         }
 
     }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace fileXML
+namespace FileXML
 {
     public class NameFilm
     {

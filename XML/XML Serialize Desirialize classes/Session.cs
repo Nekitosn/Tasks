@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace fileXML
+namespace FileXML
 {
     [Serializable]
     public class Session

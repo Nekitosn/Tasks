@@ -1,14 +1,17 @@
-﻿namespace fileXML
+﻿using System.IO;
+
+namespace FileXML
 {
     public static class GlobalConstant
     {
         public static string GetPathCinema()
         {
+
             return System.Configuration.ConfigurationSettings.AppSettings["path"];
         }
         public static string GetFullPathCinema()
         {
-            return System.Configuration.ConfigurationSettings.AppSettings["fullPath"];
+            return Directory.GetCurrentDirectory() + @"\"+ GetPathCinema();
         }
     }
 }

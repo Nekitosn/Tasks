@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace fileXML
+namespace FileXML
 {
     class Program
     {

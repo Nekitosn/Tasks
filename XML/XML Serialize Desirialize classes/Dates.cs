@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace fileXML
+namespace FileXML
 {
     [Serializable]
     public class Dates
