@@ -1,11 +1,19 @@
 ﻿using FileXML;
 using System;
 using System.Collections.Generic;
+using XML.Interfaces;
 
 namespace XML
 {
     public class Display
     {
+        private IParser parser;
+
+        public Display(IParser parser)
+        {
+            this.parser = parser;
+        }
+
         public void DisplayCommandOnConsole()
         {
             Console.WriteLine("Commands:\n" +
@@ -16,8 +24,7 @@ namespace XML
         }
         public void DisplayAll()
         {
-            SerializeOrDesirializeXML deserializeXml = new();
-            List<Dates> dates = deserializeXml.DeserializeXML<Dates>();
+            List<Dates> dates = this.parser.Deserialize<Dates>(GlobalConstant.GetPathCinema());
             foreach (Dates d in dates)
             {
                 Console.WriteLine($"Date: {d.Date.Value}");

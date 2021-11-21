@@ -1,18 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using XML.Interfaces;
 
 namespace FileXML
 {
     public class Book
     {
-        private SerializeOrDesirializeXML s = new();
+        private IParser parser;
+
+        private List<Dates> datesList;
+
+        public Book(IParser parser)
+        {
+            this.parser = parser;
+
+            this.datesList = this.parser.Deserialize<Dates>(GlobalConstant.GetPathCinema());
+        }
 
         public void BookSession(List<ReservationSession> bookList)
         {
-            try 
+            try
             {
-                ExistSession(out Dates dates,out int indexNameFilm,out string timeStartFilm);
-                List<Dates> datesList = s.DeserializeXML<Dates>();
+                ExistSession(out Dates dates, out int indexNameFilm, out string timeStartFilm);
                 if (CheckingReservation(bookList, new ReservationSession(dates, indexNameFilm, timeStartFilm)))//Если данный сеанс уже забронирован
                 {
                     Console.WriteLine("This session is already booked\n"); return;
@@ -28,7 +37,6 @@ namespace FileXML
 
         private bool ExistSession(out Dates dates, out int indexNameFilm, out string timeStartFilm)
         {
-            List<Dates> datesList = s.DeserializeXML<Dates>();
 
             dates = ExistsValue(datesList);
             if (dates == null) throw new Exception("There is no schedule for this date\n");
@@ -47,26 +55,26 @@ namespace FileXML
 
             ReservationSession reservationSession = new(dates, indexNameFilm, timeStartFilm);
 
-                //Добавляем на существующую(ту которую указал пользователь) дату, на существующий фильм новое время
+            //Добавляем на существующую(ту которую указал пользователь) дату, на существующий фильм новое время
             if (CheckReservationSessionOnThisMovie(bookList, reservationSession))
             {
-                bookList[indexValue].Films[indexReservationNameFilm].Times.Add(new TimeStartFilm(timeStartFilm)); 
+                bookList[indexValue].Films[indexReservationNameFilm].Times.Add(new TimeStartFilm(timeStartFilm));
                 return;
             }
-                //Добавляем на существующую(ту которую указал пользователь) дату новый фильм
+            //Добавляем на существующую(ту которую указал пользователь) дату новый фильм
             else if (CheckReservationSessionInThisDay(bookList, reservationSession))
             {
                 bookList[indexValue].Films.Add(new NameFilm(dates.Date.Movies.Movie[indexNameFilm].Name, new List<TimeStartFilm> { new TimeStartFilm(timeStartFilm) }));
                 return;
             }
-                //Добавляем новую дату со всеми вытекающими
-            else   
+            //Добавляем новую дату со всеми вытекающими
+            else
             {
                 bookList.Add(reservationSession);
                 return;
             }
         }
-        
+
         private bool CheckingReservation(List<ReservationSession> allReservationSessions, ReservationSession bookNow)
         {
             for (int i = 0; i < allReservationSessions.Count; i++)
@@ -85,7 +93,7 @@ namespace FileXML
             for (int i = 0; i < allReservationSessions.Count; i++)
             {
                 if (allReservationSessions[i].Value == bookNow.Value)
-                    return  true;
+                    return true;
             }
             return false;
         }
@@ -94,7 +102,7 @@ namespace FileXML
             for (int i = 0; i < allReservationSessions.Count; i++)
             {
                 if (allReservationSessions[i].Value == bookNow.Value)
-                    return  i;
+                    return i;
             }
             return -1;
         }
