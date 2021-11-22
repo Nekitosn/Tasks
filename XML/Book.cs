@@ -6,7 +6,7 @@ namespace FileXML
 {
     public class Book
     {
-        private IParser parser;
+        private IParser parser;       
 
         private List<Dates> datesList;
 

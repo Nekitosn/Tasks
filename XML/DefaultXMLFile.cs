@@ -9,7 +9,6 @@ namespace XML
     {
         private IParser parser;
 
-
         public DefaultXMLFile(IParser parser)
         {
             this.parser = parser;

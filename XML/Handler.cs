@@ -8,17 +8,20 @@ namespace FileXML
     public class Handler
     {
         private DefaultXMLFile createrFile;
-        private Watcher watcher;
+        private IWatcher watcher;
         private Display displayer;
+
+        private Book book;
 
         private readonly IParser parser;
 
-        public Handler(IParser parser)
+        public Handler(IParser parser, IWatcher watcher)
         {
             this.parser = parser;
-            this.createrFile = new(this.parser);
-            this.watcher = new(this.parser);
+            this.watcher = watcher;
+            this.createrFile = new(this.parser);            
             this.displayer = new(this.parser);
+            this.book = new(this.parser);
         }
         public void Start()
         {
@@ -46,9 +49,8 @@ namespace FileXML
                 {
                     switch (choice)
                     {
-                        case 1:
-                            Book book = new(this.parser);
-                            book.BookSession(bookList);
+                        case 1:                            
+                            this.book.BookSession(bookList);
                             break;
                         case 2:
                             this.displayer.DisplayReserved(bookList);

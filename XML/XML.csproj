@@ -59,12 +59,12 @@
     <Compile Include="ReservationSession\TimeStartFilm.cs" />
     <Compile Include="SerializeXML.cs" />
     <Compile Include="Watcher.cs" />
-    <Compile Include="XML Serialize Desirialize classes\Date.cs" />
-    <Compile Include="XML Serialize Desirialize classes\Dates.cs" />
-    <Compile Include="XML Serialize Desirialize classes\Movie.cs" />
-    <Compile Include="XML Serialize Desirialize classes\Movies.cs" />
-    <Compile Include="XML Serialize Desirialize classes\Session.cs" />
-    <Compile Include="XML Serialize Desirialize classes\Sessions.cs" />
+    <Compile Include="Models\Date.cs" />
+    <Compile Include="Models\Dates.cs" />
+    <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Movies.cs" />
+    <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\Sessions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
