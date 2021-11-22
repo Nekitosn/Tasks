@@ -1,4 +1,4 @@
-﻿using System;
+﻿using XML;
 
 namespace FileXML
 {
@@ -6,7 +6,9 @@ namespace FileXML
     {
         static void Main()
         {
-            Handler handler = new();
+            Handler handler = new(
+                new SerializeXML(),
+                new Watcher(new SerializeXML()));
             handler.Start();
         }
 

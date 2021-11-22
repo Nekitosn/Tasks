@@ -1,54 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
 using XML;
+using XML.Interfaces;
 
 namespace FileXML
 {
-    public class Handler 
+    public class Handler
     {
-        private DefaultXMLFile create;
-        private Watcher watch;
-        private Display display;
+        private DefaultXMLFile createrFile;
+        private IWatcher watcher;
+        private Display displayer;
+
+        private Book book;
+
+        private readonly IParser parser;
+
+        public Handler(IParser parser, IWatcher watcher)
+        {
+            this.parser = parser;
+            this.watcher = watcher;
+            this.createrFile = new(this.parser);            
+            this.displayer = new(this.parser);
+            this.book = new(this.parser);
+        }
         public void Start()
         {
-            create = new();
-            watch = new();
-            display = new();
-
             //Создаеться xml файл как в примере
-            create.CreateDefaultXml();
+            this.createrFile.CreateDefaultXml();
 
             //Слежение за изменением xml файлом
-            watch.Watch(GlobalConstant.GetPathCinema());
+            this.watcher.Watch();
 
-            display.DisplayAll();
+            this.displayer.DisplayAll();
 
-            GetChoice();
+            this.GetChoice();
         }
 
         private void GetChoice()
         {
-            display = new();
             List<ReservationSession> bookList = new();
             bool repeate = true;
             while (repeate)
             {
-                display.DisplayCommandOnConsole();
+                this.displayer.DisplayCommandOnConsole();
                 string choiceTry = Console.ReadLine();
                 bool normalin = int.TryParse(choiceTry, out int choice);
                 if (normalin)
                 {
                     switch (choice)
                     {
-                        case 1:
-                            Book book = new();
-                            book.BookSession(bookList);
+                        case 1:                            
+                            this.book.BookSession(bookList);
                             break;
                         case 2:
-                            display.DisplayReserved(bookList);
+                            this.displayer.DisplayReserved(bookList);
                             break;
                         case 3:
-                            display.DisplayAll();
+                            this.displayer.DisplayAll();
                             break;
                         case 4:
                             Console.WriteLine("The program has completed its work");
@@ -65,5 +73,5 @@ namespace FileXML
         }
 
     }
-   
+
 }

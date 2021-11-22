@@ -1,13 +1,24 @@
 ﻿using FileXML;
 using System;
 using System.IO;
+using XML.Interfaces;
 
 namespace XML
 {
-    public class Watcher
+    public class Watcher : IWatcher
     {
-        private Display display=new Display();
-        public void Watch(string path)
+        private IParser parser;
+
+        private Display displayer;
+
+        public Watcher(IParser parser)
+        {
+            this.parser = parser;
+
+            this.displayer = new Display(this.parser);
+        }
+
+        public void Watch()
         {
             FileSystemWatcher watcher = new();
             watcher.Path = Path.GetDirectoryName(GlobalConstant.GetFullPathCinema());
@@ -18,9 +29,8 @@ namespace XML
         private void WatcherChanged(object sender, FileSystemEventArgs e)
         {
             Console.Clear();
-
-            display.DisplayAll();
-            display.DisplayCommandOnConsole();
+            this.displayer.DisplayAll();
+            this.displayer.DisplayCommandOnConsole();
         }
     }
 }
