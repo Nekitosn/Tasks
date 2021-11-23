@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,11 +55,13 @@
     <Compile Include="Interfaces\IBookSession.cs" />
     <Compile Include="Interfaces\IWatcher.cs" />
     <Compile Include="Interfaces\IParser.cs" />
+    <Compile Include="Json\BookInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReservationSession\NameFilm.cs" />
     <Compile Include="ReservationSession\ReservationSession.cs" />
     <Compile Include="ReservationSession\TimeStartFilm.cs" />
+    <Compile Include="SerializeJSON.cs" />
     <Compile Include="SerializeXML.cs" />
     <Compile Include="Watcher.cs" />
     <Compile Include="Models\Date.cs" />
@@ -68,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

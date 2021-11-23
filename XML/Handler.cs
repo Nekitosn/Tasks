@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using XML;
 using XML.Interfaces;
 
@@ -38,7 +39,7 @@ namespace FileXML
 
         private void GetChoice()
         {
-            List<ReservationSession> bookList = new();
+            //List<ReservationSession> bookList = new();
             bool repeate = true;
             while (repeate)
             {
@@ -50,15 +51,18 @@ namespace FileXML
                     switch (choice)
                     {
                         case 1:                            
-                            this.book.BookSession(bookList);
+                            this.book.BookSession();
                             break;
                         case 2:
-                            this.displayer.DisplayReserved(bookList);
+                            this.displayer.DisplayReserved();
                             break;
                         case 3:
                             this.displayer.DisplayAll();
                             break;
                         case 4:
+                            File.WriteAllText(GlobalConstant.GetPathBookInfo(), String.Empty);
+                            break;
+                        case 5:
                             Console.WriteLine("The program has completed its work");
                             repeate = false;
                             break;

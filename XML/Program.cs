@@ -1,4 +1,5 @@
 ﻿using XML;
+using XML.Json;
 
 namespace FileXML
 {
@@ -6,8 +7,9 @@ namespace FileXML
     {
         static void Main()
         {
+
             Handler handler = new(
-                new SerializeXML(),
+                new SerializeJSON(),
                 new Watcher(new SerializeXML()));
             handler.Start();
         }

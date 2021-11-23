@@ -1,6 +1,8 @@
 ﻿using FileXML;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using XML.Interfaces;
 
 namespace XML
@@ -20,7 +22,8 @@ namespace XML
                      "1.Book a session\n" +
                      "2.List of booked sessions\n" +
                      "3.Display all\n" +
-                     "4.Exit the program\n");
+                     "4.Reset all booked sessions\n" +
+                     "5.Exit the program\n");
         }
         public void DisplayAll()
         {
@@ -40,20 +43,26 @@ namespace XML
             }
         }
 
-        public void DisplayReserved(List<ReservationSession> list)
+        public void DisplayReserved()
         {
-            Console.WriteLine("Booked sessions::");
-            if (list.Count == 0)
-                Console.WriteLine("There are no booked sessions yet\n");
-            for (int i = 0; i < list.Count; i++)
-            {
-                Console.WriteLine($"{list[i].Value.Day} {list[i].Value.Month} {list[i].Value.DayOfWeek}");
-                for (int j = 0; j < list[i].Films.Count; j++)
-                {
-                    Console.Write($"   {list[i].Films[j].Film}");
+            List<ReservationSession> bookList = this.parser.Deserialize<ReservationSession>(GlobalConstant.GetPathBookInfo());
 
-                    for (int k = 0; k < list[i].Films[j].Times.Count; k++)
-                        Console.Write($"\t{list[i].Films[j].Times[k].Time}");
+            if (bookList == null) 
+            {
+                Console.WriteLine("There are no booked sessions yet\n");
+                return;
+            }
+
+            Console.WriteLine("Booked sessions::");
+            for (int i = 0; i < bookList.Count; i++)
+            {
+                Console.WriteLine($"{bookList[i].Value.Day} {bookList[i].Value.Month} {bookList[i].Value.DayOfWeek}");
+                for (int j = 0; j < bookList[i].Films.Count; j++)
+                {
+                    Console.Write($"   {bookList[i].Films[j].Film}");
+
+                    for (int k = 0; k < bookList[i].Films[j].Times.Count; k++)
+                        Console.Write($"\t{bookList[i].Films[j].Times[k].Time}");
                     Console.WriteLine();
                 }
                 Console.WriteLine("\n");
