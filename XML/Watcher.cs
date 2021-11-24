@@ -9,13 +9,13 @@ namespace XML
     {
         private IParser parser;
 
-        private Display displayer;
+        private DisplayAllSession displayer;
 
         public Watcher(IParser parser)
         {
             this.parser = parser;
 
-            this.displayer = new Display(this.parser);
+            this.displayer = new DisplayAllSession(this.parser);
         }
 
         public void Watch()
@@ -29,7 +29,7 @@ namespace XML
         private void WatcherChanged(object sender, FileSystemEventArgs e)
         {
             Console.Clear();
-            this.displayer.DisplayAll();
+            this.displayer.Display();
             this.displayer.DisplayCommandOnConsole();
         }
     }

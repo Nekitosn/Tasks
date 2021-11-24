@@ -47,22 +47,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book.cs" />
+    <Compile Include="Book\Book.cs" />
+    <Compile Include="Book\BookWith2Parser.cs" />
     <Compile Include="DefaultXMLFile.cs" />
-    <Compile Include="Display.cs" />
+    <Compile Include="DisplayAllSession.cs" />
+    <Compile Include="DisplayReservation.cs" />
+    <Compile Include="Factoryes\SerializeFactory.cs" />
+    <Compile Include="Factoryes\SerializeUnknown.cs" />
+    <Compile Include="Factoryes\TypeSerializer.cs" />
     <Compile Include="GlobalConstant.cs" />
     <Compile Include="Handler.cs" />
+    <Compile Include="HandlerWith2Parser.cs" />
     <Compile Include="Interfaces\IBookSession.cs" />
     <Compile Include="Interfaces\IWatcher.cs" />
     <Compile Include="Interfaces\IParser.cs" />
-    <Compile Include="Json\BookInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReservationSession\NameFilm.cs" />
-    <Compile Include="ReservationSession\ReservationSession.cs" />
-    <Compile Include="ReservationSession\TimeStartFilm.cs" />
-    <Compile Include="SerializeJSON.cs" />
-    <Compile Include="SerializeXML.cs" />
+    <Compile Include="Reservation\NameFilm.cs" />
+    <Compile Include="Reservation\ReservationSession.cs" />
+    <Compile Include="Reservation\TimeStartFilm.cs" />
+    <Compile Include="Factoryes\SerializeJSON.cs" />
+    <Compile Include="Factoryes\SerializeXML.cs" />
+    <Compile Include="Book\ReservationAndHerFilds.cs" />
     <Compile Include="Watcher.cs" />
     <Compile Include="Models\Date.cs" />
     <Compile Include="Models\Dates.cs" />

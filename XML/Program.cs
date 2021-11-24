@@ -1,5 +1,5 @@
 ﻿using XML;
-using XML.Json;
+using XML.Factoryes;
 
 namespace FileXML
 {
@@ -7,10 +7,16 @@ namespace FileXML
     {
         static void Main()
         {
+            // Когда у нас 2 интерфейса IParser
+            //Handler handler = new(
+            //    SerializeFactory.ProduceSerialize(TypeSerializer.XML),
+            //    SerializeFactory.ProduceSerialize(TypeSerializer.JSON),
+            //    new Watcher(SerializeFactory.ProduceSerialize(TypeSerializer.XML)));
 
-            Handler handler = new(
-                new SerializeJSON(),
-                new Watcher(new SerializeXML()));
+
+            Handler handler= new (
+                SerializeFactory.ProduceSerialize(TypeSerializer.JSON),
+                new Watcher(SerializeFactory.ProduceSerialize(TypeSerializer.JSON)));
             handler.Start();
         }
 

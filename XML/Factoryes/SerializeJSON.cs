@@ -1,5 +1,4 @@
-﻿using FileXML;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using XML.Interfaces;
@@ -10,7 +9,7 @@ namespace XML
     {
         public List<T> Deserialize<T>(string filePath)
         {
-            return JsonConvert.DeserializeObject<List<T>>(File.ReadAllText("BookInfo.json"));
+            return JsonConvert.DeserializeObject<List<T>>(File.ReadAllText(filePath));
         }
 
         public void Serialize<T>(List<T> list, string filePath)

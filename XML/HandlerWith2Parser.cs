@@ -5,29 +5,31 @@ using XML.Interfaces;
 
 namespace FileXML
 {
-    public class Handler
+    public class HandlerWith2Parser
     {
         private DefaultXMLFile createrFile;
         private IWatcher watcher;
         private DisplayAllSession displayerAll;
         private DisplayReservation displayerBooked;
-        private Book book;
+        private BookWith2Parser book;
 
 
-        private readonly IParser parser;
+        private readonly IParser reading;
+        private readonly IParser recording;
 
-        public Handler(IParser parser,IWatcher watcher)
+        public HandlerWith2Parser(IParser reading, IParser recording, IWatcher watcher)
         {
-            this.parser = parser;
+            this.reading = reading;
+            this.recording = recording;
             this.watcher = watcher;
-            this.createrFile = new(this.parser);            
-            this.displayerAll = new(this.parser);
-            this.displayerBooked = new(this.parser);
-            this.book = new(this.parser);
+            this.createrFile = new(this.reading);
+            this.displayerAll = new(this.reading);
+            this.displayerBooked = new(this.recording);
+            this.book = new(this.reading, this.recording);
         }
         public void Start()
         {
-            //Создаеться  файл как в примере
+            //Создаеться xml файл как в примере
             this.createrFile.CreateDefaultXml();
 
             //Слежение за изменением xml файлом
@@ -50,7 +52,7 @@ namespace FileXML
                 {
                     switch (choice)
                     {
-                        case 1:                            
+                        case 1:
                             this.book.BookSession();
                             break;
                         case 2:

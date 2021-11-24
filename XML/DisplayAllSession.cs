@@ -1,17 +1,15 @@
 ﻿using FileXML;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using XML.Interfaces;
 
 namespace XML
 {
-    public class Display
+    public class DisplayAllSession
     {
         private IParser parser;
 
-        public Display(IParser parser)
+        public DisplayAllSession(IParser parser)
         {
             this.parser = parser;
         }
@@ -25,7 +23,7 @@ namespace XML
                      "4.Reset all booked sessions\n" +
                      "5.Exit the program\n");
         }
-        public void DisplayAll()
+        public void Display()
         {
             List<Dates> dates = this.parser.Deserialize<Dates>(GlobalConstant.GetPathCinema());
             foreach (Dates d in dates)
