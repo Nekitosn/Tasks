@@ -34,11 +34,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Canister.IoC, Version=4.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Canister.IoC.4.0.3\lib\net4.8\Canister.IoC.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SimpleInjector, Version=5.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.5.3.2\lib\net461\SimpleInjector.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,18 +68,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book\Book.cs" />
-    <Compile Include="Book\BookWith2Parser.cs" />
-    <Compile Include="DefaultXMLFile.cs" />
-    <Compile Include="DisplayAllSession.cs" />
-    <Compile Include="DisplayReservation.cs" />
+    <Compile Include="ICommand\Book\Book.cs" />
+    <Compile Include="DefaultFile.cs" />
+    <Compile Include="ICommand\Display\DisplayAllSession.cs" />
+    <Compile Include="ICommand\Display\DisplayComandOnConsole.cs" />
+    <Compile Include="ICommand\Display\DisplayReservation.cs" />
     <Compile Include="Factoryes\SerializeFactory.cs" />
     <Compile Include="Factoryes\SerializeUnknown.cs" />
     <Compile Include="Factoryes\TypeSerializer.cs" />
     <Compile Include="GlobalConstant.cs" />
     <Compile Include="Handler.cs" />
-    <Compile Include="HandlerWith2Parser.cs" />
     <Compile Include="Interfaces\IBookSession.cs" />
+    <Compile Include="Interfaces\ICommandos.cs" />
     <Compile Include="Interfaces\IWatcher.cs" />
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Program.cs" />
@@ -68,7 +89,8 @@
     <Compile Include="Reservation\TimeStartFilm.cs" />
     <Compile Include="Factoryes\SerializeJSON.cs" />
     <Compile Include="Factoryes\SerializeXML.cs" />
-    <Compile Include="Book\ReservationAndHerFilds.cs" />
+    <Compile Include="ICommand\Book\ReservationAndHerFilds.cs" />
+    <Compile Include="ICommand\ResetAllBookedSessions.cs" />
     <Compile Include="Watcher.cs" />
     <Compile Include="Models\Date.cs" />
     <Compile Include="Models\Dates.cs" />

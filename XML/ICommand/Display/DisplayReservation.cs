@@ -6,7 +6,7 @@ using XML.Interfaces;
 
 namespace XML
 {
-    public class DisplayReservation
+    public class DisplayReservation : ICommandos
     {
         private IParser parser;
 
@@ -15,7 +15,7 @@ namespace XML
             this.parser = parser;
         }
 
-        public void Display()
+        public  void Execute()
         {
             List<ReservationSession> bookList = this.parser.Deserialize<ReservationSession>(GlobalConstant.GetPathBookInfo());
 

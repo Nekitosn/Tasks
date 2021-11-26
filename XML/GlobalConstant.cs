@@ -17,5 +17,17 @@ namespace FileXML
         {
             return System.Configuration.ConfigurationSettings.AppSettings["pathToBookInfo"];
         }
+        static void Swap<T>(ref T a, ref T b)
+        {
+            T temp = a;
+            a = b;
+            b = temp;
+        }
+
+
+        //public static int GetCountKeyInDictionary<T>(T dickionary) 
+        //{
+        //    retur;
+        //}
     }
 }

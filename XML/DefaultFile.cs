@@ -5,11 +5,11 @@ using XML.Interfaces;
 
 namespace XML
 {
-    public class DefaultXMLFile
+    public class DefaultFile
     {
         private IParser parser;
 
-        public DefaultXMLFile(IParser parser)
+        public DefaultFile(IParser parser)
         {
             this.parser = parser;
         }

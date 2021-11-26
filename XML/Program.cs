@@ -1,22 +1,28 @@
 ﻿using XML;
 using XML.Factoryes;
+using XML.Interfaces;
+using SimpleInjector;
 
 namespace FileXML
 {
     class Program
     {
+        static Container container;
+
+        //Не понимаю как оно работает, от слова вообще
+        //static Program()
+        //{
+        //    container = new Container();
+        //    //container.Register<IWatcher, Watcher>();
+
+        //    container.Verify();
+        //}
         static void Main()
         {
-            // Когда у нас 2 интерфейса IParser
-            //Handler handler = new(
-            //    SerializeFactory.ProduceSerialize(TypeSerializer.XML),
-            //    SerializeFactory.ProduceSerialize(TypeSerializer.JSON),
-            //    new Watcher(SerializeFactory.ProduceSerialize(TypeSerializer.XML)));
-
-
-            Handler handler= new (
+            Handler handler = new Handler(
                 SerializeFactory.ProduceSerialize(TypeSerializer.JSON),
                 new Watcher(SerializeFactory.ProduceSerialize(TypeSerializer.JSON)));
+
             handler.Start();
         }
 

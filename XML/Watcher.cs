@@ -10,12 +10,14 @@ namespace XML
         private IParser parser;
 
         private DisplayAllSession displayer;
+        private DisplayComandOnConsole displayerComand;
 
         public Watcher(IParser parser)
         {
             this.parser = parser;
 
             this.displayer = new DisplayAllSession(this.parser);
+            this.displayerComand = new DisplayComandOnConsole(this.parser);
         }
 
         public void Watch()
@@ -29,8 +31,8 @@ namespace XML
         private void WatcherChanged(object sender, FileSystemEventArgs e)
         {
             Console.Clear();
-            this.displayer.Display();
-            this.displayer.DisplayCommandOnConsole();
+            this.displayer.Execute();
+            this.displayerComand.Execute();
         }
     }
 }

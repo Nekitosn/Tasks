@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 using XML;
 using XML.Interfaces;
 
@@ -7,75 +7,71 @@ namespace FileXML
 {
     public class Handler
     {
-        private DefaultXMLFile createrFile;
+        private DefaultFile createrFile;
         private IWatcher watcher;
         private DisplayAllSession displayerAll;
         private DisplayReservation displayerBooked;
+        private DisplayComandOnConsole displayerComandOnConsole;
         private Book book;
+        private ResetAllBookedSessions cleanerAllBookedSessions;
+        
 
+        private readonly Dictionary<int, Action> command; 
 
         private readonly IParser parser;
 
-        public Handler(IParser parser,IWatcher watcher)
+        public Handler(IParser parser, IWatcher watcher)
         {
             this.parser = parser;
             this.watcher = watcher;
-            this.createrFile = new(this.parser);            
+            this.createrFile = new(this.parser);
             this.displayerAll = new(this.parser);
             this.displayerBooked = new(this.parser);
+            this.displayerComandOnConsole = new(this.parser);
             this.book = new(this.parser);
+            this.cleanerAllBookedSessions = new(GlobalConstant.GetPathBookInfo());
+
+            this.command = new Dictionary<int, Action>()
+            {
+                {1,()=>book.Execute() },
+                {2,()=>displayerBooked.Execute() },
+                {3,()=>displayerAll.Execute() },
+                {4,()=>cleanerAllBookedSessions.Execute() }
+            };
         }
         public void Start()
         {
             //Создаеться  файл как в примере
             this.createrFile.CreateDefaultXml();
-
             //Слежение за изменением xml файлом
             this.watcher.Watch();
 
-            this.displayerAll.Display();
+            this.displayerAll.Execute();
 
             this.GetChoice();
         }
 
         private void GetChoice()
         {
-            bool repeate = true;
-            while (repeate)
+            while (true)
             {
-                this.displayerAll.DisplayCommandOnConsole();
+                this.displayerComandOnConsole.Execute();
                 string choiceTry = Console.ReadLine();
                 bool normalin = int.TryParse(choiceTry, out int choice);
-                if (normalin)
+                if (normalin && choice>=0 && choice <= command.Count+1)
                 {
-                    switch (choice)
-                    {
-                        case 1:                            
-                            this.book.BookSession();
-                            break;
-                        case 2:
-                            this.displayerBooked.Display();
-                            break;
-                        case 3:
-                            this.displayerAll.Display();
-                            break;
-                        case 4:
-                            File.WriteAllText(GlobalConstant.GetPathBookInfo(), String.Empty);
-                            break;
-                        case 5:
-                            Console.WriteLine("The program has completed its work");
-                            repeate = false;
-                            break;
-                        default:
-                            Console.WriteLine("This command does not exist");
-                            break;
-                    }
+                    if (choice == command.Count + 1)
+                        break;
+
+                    command[choice]();
                 }
                 else
                     Console.WriteLine("Check the spelling");
-            }
-        }
 
+            }
+            Console.WriteLine("Exit the program\n");
+        }
     }
 
 }
+
