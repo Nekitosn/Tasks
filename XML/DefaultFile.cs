@@ -12,8 +12,9 @@ namespace XML
         public DefaultFile(IParser parser)
         {
             this.parser = parser;
+            CreateDefault();
         }
-        public void CreateDefaultXml()
+        public void CreateDefault()
         {
             //Создание xml файла как в примере
             Dates dates1 = new(new Date(new DateTime(2019, 02, 25), new Movies(new List<Movie> { new Movie("ed0c5c20-4259-4b09-823a-1a6531221060", "Deadpool 2", new Sessions(new List<Session> { new Session("10:30"), new Session("19:00") })), new Movie("051eaee5-0bc5-43f4-8435-20e3498083cc", "Invincible", new Sessions(new List<Session> { new Session("10:00") })) })));

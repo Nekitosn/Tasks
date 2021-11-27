@@ -15,14 +15,24 @@ namespace FileXML
             this.parser = parser;
 
             this.datesList = this.parser.Deserialize<Dates>(GlobalConstant.GetPathCinema());
+
         }
         public  void Execute()
         {
-            ExistSession(out ReservationAndHerFilds reservationAndHerFilds);
+            ReservationAndHerFilds reservationAndHerFilds;
+            try
+            {
+                bool existSesion = ExistSession(out reservationAndHerFilds);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
 
             var bookList = this.parser.Deserialize<ReservationSession>(GlobalConstant.GetPathBookInfo());
 
-            if (bookList == null)
+            if (bookList == null )
             {
                 BookedJson(bookList, reservationAndHerFilds);
                 Console.WriteLine($"You have booked a session\n");
@@ -41,17 +51,8 @@ namespace FileXML
 
         private bool ExistSession(out ReservationAndHerFilds reservationAndHerFilds)
         {
-            try
-            {
-                reservationAndHerFilds = GetReservationSession();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                reservationAndHerFilds = null;
-                return false;
-            }
+            reservationAndHerFilds = GetReservationSession();
+            return true;
         }
         private ReservationAndHerFilds GetReservationSession()
         {
@@ -69,8 +70,6 @@ namespace FileXML
         private Dates ExistsValue(List<Dates> allSessions)
         {
             Console.WriteLine("Specify the date when you want to purchase a ticket: ");
-            try
-            {
                 DateTime date = Convert.ToDateTime(Console.ReadLine());
                 for (int i = 0; i < allSessions.Count; i++)
                 {
@@ -79,12 +78,6 @@ namespace FileXML
                 }
 
                 return null;
-            }
-            catch
-            {
-                Console.WriteLine("Enter the date in the format 2020 01 28 (year month day)\n");
-                return null;
-            }
         }
         private int ExistsFilm(Dates dates)
         {

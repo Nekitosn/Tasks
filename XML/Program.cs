@@ -20,8 +20,8 @@ namespace FileXML
         static void Main()
         {
             Handler handler = new Handler(
-                SerializeFactory.ProduceSerialize(TypeSerializer.XML),
-                new Watcher(SerializeFactory.ProduceSerialize(TypeSerializer.XML)));
+                SerializeFactory.ProduceSerialize(TypeSerializer.JSON),
+                new Watcher(SerializeFactory.ProduceSerialize(TypeSerializer.JSON)));
 
             handler.Start();
         }

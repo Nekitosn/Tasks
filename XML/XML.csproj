@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="ICommand\Book\Book.cs" />
     <Compile Include="DefaultFile.cs" />
+    <Compile Include="ICommand\Book\DefaultBookFile.cs" />
     <Compile Include="ICommand\Display\DisplayAllSession.cs" />
     <Compile Include="ICommand\Display\DisplayComandOnConsole.cs" />
     <Compile Include="ICommand\Display\DisplayReservation.cs" />

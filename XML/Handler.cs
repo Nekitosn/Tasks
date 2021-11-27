@@ -8,6 +8,7 @@ namespace FileXML
     public class Handler
     {
         private DefaultFile createrFile;
+        private DefaultBookFile createrBookFile;
         private IWatcher watcher;
         private DisplayAllSession displayerAll;
         private DisplayReservation displayerBooked;
@@ -23,13 +24,14 @@ namespace FileXML
         public Handler(IParser parser, IWatcher watcher)
         {
             this.parser = parser;
-            this.watcher = watcher;
             this.createrFile = new(this.parser);
+            this.createrBookFile = new(this.parser);
             this.displayerAll = new(this.parser);
             this.displayerBooked = new(this.parser);
             this.displayerComandOnConsole = new(this.parser);
             this.book = new(this.parser);
             this.cleanerAllBookedSessions = new(GlobalConstant.GetPathBookInfo());
+            this.watcher = watcher;
 
             this.command = new Dictionary<int, Action>()
             {
@@ -41,9 +43,6 @@ namespace FileXML
         }
         public void Start()
         {
-            //Создаеться  файл как в примере
-            this.createrFile.CreateDefaultXml();
-            //Слежение за изменением xml файлом
             this.watcher.Watch();
 
             this.displayerAll.Execute();
