@@ -7,8 +7,6 @@ namespace FileXML
 {
     public class Handler
     {
-        private DefaultFile createrFile;
-        private DefaultBookFile createrBookFile;
         private IWatcher watcher;
         private DisplayAllSession displayerAll;
         private DisplayReservation displayerBooked;
@@ -23,9 +21,7 @@ namespace FileXML
 
         public Handler(IParser parser, IWatcher watcher)
         {
-            this.parser = parser;
-            this.createrFile = new(this.parser);
-            this.createrBookFile = new(this.parser);
+            this.parser = parser;           
             this.displayerAll = new(this.parser);
             this.displayerBooked = new(this.parser);
             this.displayerComandOnConsole = new(this.parser);

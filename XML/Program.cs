@@ -7,21 +7,19 @@ namespace FileXML
 {
     class Program
     {
-        static Container container;
-
-        //Не понимаю как оно работает, от слова вообще
-        //static Program()
-        //{
-        //    container = new Container();
-        //    //container.Register<IWatcher, Watcher>();
-
-        //    container.Verify();
-        //}
+        private static  Container container; 
+       
+        static Program()
+        {
+            container = new Container();
+            container.Register<IWatcher, Watcher>();
+            container.Register<IParser, SerializeJSON>();
+            container.Register<Handler>();
+            container.Verify();
+        }
         static void Main()
         {
-            Handler handler = new Handler(
-                SerializeFactory.ProduceSerialize(TypeSerializer.JSON),
-                new Watcher(SerializeFactory.ProduceSerialize(TypeSerializer.JSON)));
+            var handler = container.GetInstance<Handler>();
 
             handler.Start();
         }
