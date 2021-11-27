@@ -11,8 +11,14 @@ namespace FileXML
         {
             XmlSerializer superFormatter = new(typeof(List<T>));
             using FileStream fs = new(filePath, FileMode.Open);
-            var dates = (List<T>)superFormatter.Deserialize(fs);
-            return dates;
+            try
+            {
+                return (List<T>)superFormatter.Deserialize(fs);
+            }
+            catch(System.InvalidOperationException) 
+            {
+                return null;
+            }
         }
 
         public void Serialize<T>(List<T> list, string filePath)
