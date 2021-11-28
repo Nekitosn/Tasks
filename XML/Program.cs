@@ -12,8 +12,8 @@ namespace FileXML
         static Program()
         {
             container = new Container();
+            container.Register<IParser, SerializeXML>();
             container.Register<IWatcher, Watcher>();
-            container.Register<IParser, SerializeJSON>();
             container.Register<Handler>();
             container.Verify();
         }
