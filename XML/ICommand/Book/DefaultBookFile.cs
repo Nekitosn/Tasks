@@ -6,16 +6,21 @@ using XML.Interfaces;
 
 namespace XML
 {
-    public class DefaultBookFile
+    public class DefaultBookFile:ICommandos
     {
-        private IParser parser;
 
-        public DefaultBookFile(IParser parser)
+        public DefaultBookFile()
         {
-            this.parser = parser;
-            CreateDefaultBook();
+            Execute();
         }
-        public void CreateDefaultBook()
+        //public void CreateDefaultBook()
+        //{
+        //    //Создание файла для записи бронированых файлов
+        //    FileStream fstream = new FileStream(GlobalConstant.GetPathBookInfo(), FileMode.OpenOrCreate);
+        //    fstream.Close();
+        //}
+
+        public void Execute()
         {
             //Создание файла для записи бронированых файлов
             FileStream fstream = new FileStream(GlobalConstant.GetPathBookInfo(), FileMode.OpenOrCreate);

@@ -16,6 +16,7 @@ namespace FileXML
             container.Register<IWatcher, Watcher>();
             container.Register<Handler>();
             container.Verify();
+
         }
         static void Main()
         {
