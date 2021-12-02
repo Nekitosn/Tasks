@@ -1,12 +1,11 @@
 ﻿using FileXML;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using XML.Interfaces;
 
 namespace XML
 {
-    public class DisplayReservation : ICommandos
+    public class DisplayReservation : ICommand
     {
         private IParser parser;
 

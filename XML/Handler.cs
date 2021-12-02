@@ -11,7 +11,7 @@ namespace FileXML
         private static Container container;
 
         private readonly Dictionary<int, Action> command;
-        private Dictionary<string, ICommandos> classes;
+        private Dictionary<string, ICommand> classes;
 
         private readonly IWatcher watcher;
 
@@ -35,7 +35,7 @@ namespace FileXML
             this.watcher = watcher;
             //this.parser = parser;
 
-            this.classes = new Dictionary<string, ICommandos>()
+            this.classes = new Dictionary<string, ICommand>()
             {
                 {"displayerAll",container.GetInstance<DisplayAllSession>() },
                 {"displayerBooked",container.GetInstance<DisplayReservation>() },

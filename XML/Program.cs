@@ -1,5 +1,4 @@
 ﻿using XML;
-using XML.Factoryes;
 using XML.Interfaces;
 using SimpleInjector;
 
@@ -12,7 +11,7 @@ namespace FileXML
         static Program()
         {
             container = new Container();
-            container.Register<IParser, SerializeXML>();
+            container.Register<IParser, SerializeFactory>();
             container.Register<IWatcher, Watcher>();
             container.Register<Handler>();
             container.Verify();

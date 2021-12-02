@@ -5,7 +5,7 @@ using XML.Interfaces;
 
 namespace XML
 {
-    public class DisplayAllSession: ICommandos
+    public class DisplayAllSession: ICommand
     {
         private IParser parser;
 

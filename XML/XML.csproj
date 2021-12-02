@@ -79,8 +79,7 @@
     <Compile Include="Factoryes\TypeSerializer.cs" />
     <Compile Include="GlobalConstant.cs" />
     <Compile Include="Handler.cs" />
-    <Compile Include="Interfaces\IBookSession.cs" />
-    <Compile Include="Interfaces\ICommandos.cs" />
+    <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Interfaces\IWatcher.cs" />
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Program.cs" />

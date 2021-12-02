@@ -3,7 +3,7 @@ using XML.Interfaces;
 
 namespace XML
 {
-    public class DisplayComandOnConsole : ICommandos
+    public class DisplayComandOnConsole : ICommand
     {
         private IParser parser;
 

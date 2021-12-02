@@ -4,7 +4,7 @@ using XML.Interfaces;
 
 namespace FileXML
 {
-    public class Book : ICommandos
+    public class Book : ICommand
     {
         private IParser parser;
 
