@@ -3,7 +3,7 @@ using XML.Interfaces;
 
 namespace XML.Factoryes
 {
-    class SerializeFactory
+    class SerializeFactory 
     {
         public static IParser ProduceSerialize(TypeSerializer type)
         {
