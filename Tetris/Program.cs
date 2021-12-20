@@ -10,6 +10,14 @@ namespace Tetris
     {
         static void Main(string[] args)
         {
+            Field start = new Field();
+            for (int i = 0; i < 120; i++)
+            {
+                Console.Clear();
+                start.Excute();
+            }
+           
+
         }
     }
 }
