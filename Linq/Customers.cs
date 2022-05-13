@@ -43,8 +43,9 @@ namespace Customers_GitHub
         }
         public static List<Customer> GetEldestCustomer(List<Customer> customers)
         {
-            var erlierRegister = customers.OrderByDescending(x => x.RegistrationDate).Take(1);
-            return erlierRegister.ToList();
+            return customers.OrderByDescending(x => x.RegistrationDate)
+                            .Take(1)
+                            .ToList();
         }
 
 
